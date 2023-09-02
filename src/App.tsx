@@ -48,7 +48,7 @@ function App() {
       // HINT3: You can use the indices and dimensions variables to get the boundaries of the current pixel canvas.
       // Check out the documentation for more information:
       // URL1: https://hunkim98.github.io/dotting/?path=/story/hooks-usedotting--page
-      // URL2: http://localhost:6005/?path=/story/hooks-usegrids--page
+      // URL2: https://hunkim98.github.io/dotting/?path=/story/hooks-usegrids--page
       // Do not modify any parts other than the below.
       // Modifiy ⬇️
       if (hoveredPixel) {
