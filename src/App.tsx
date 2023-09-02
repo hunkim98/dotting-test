@@ -3,6 +3,7 @@ import {
   CanvasHoverPixelChangeHandler,
   Dotting,
   DottingRef,
+  PixelModifyItem,
   useBrush,
   useData,
   useDotting,
@@ -52,9 +53,80 @@ function App() {
       // Do not modify any parts other than the below.
       // Modifiy ⬇️
       if (hoveredPixel) {
+        const pixelsToColor: Array<PixelModifyItem> = [];
         console.log(
           `You clicked on rowIndex: ${hoveredPixel.rowIndex}, columnIndex: ${hoveredPixel.columnIndex}`
         );
+        let leftTopPixelIndex = {
+          rowIndex: hoveredPixel.rowIndex - 1,
+          columnIndex: hoveredPixel.columnIndex - 1,
+        };
+        while (
+          leftTopPixelIndex.rowIndex >= indices.topRowIndex &&
+          leftTopPixelIndex.columnIndex >= indices.leftColumnIndex
+        ) {
+          pixelsToColor.push({
+            ...leftTopPixelIndex,
+            color: "red",
+          });
+          leftTopPixelIndex = {
+            rowIndex: leftTopPixelIndex.rowIndex - 1,
+            columnIndex: leftTopPixelIndex.columnIndex - 1,
+          };
+        }
+        let rightTopPixelIndex = {
+          rowIndex: hoveredPixel.rowIndex - 1,
+          columnIndex: hoveredPixel.columnIndex + 1,
+        };
+        while (
+          rightTopPixelIndex.rowIndex >= indices.topRowIndex &&
+          rightTopPixelIndex.columnIndex <= indices.rightColumnIndex
+        ) {
+          pixelsToColor.push({
+            ...rightTopPixelIndex,
+            color: "red",
+          });
+          rightTopPixelIndex = {
+            rowIndex: rightTopPixelIndex.rowIndex - 1,
+            columnIndex: rightTopPixelIndex.columnIndex + 1,
+          };
+        }
+        let leftBottomPixelIndex = {
+          rowIndex: hoveredPixel.rowIndex + 1,
+          columnIndex: hoveredPixel.columnIndex - 1,
+        };
+        while (
+          leftBottomPixelIndex.rowIndex <= indices.bottomRowIndex &&
+          leftBottomPixelIndex.columnIndex >= indices.leftColumnIndex
+        ) {
+          pixelsToColor.push({
+            ...leftBottomPixelIndex,
+            color: "red",
+          });
+          leftBottomPixelIndex = {
+            rowIndex: leftBottomPixelIndex.rowIndex + 1,
+            columnIndex: leftBottomPixelIndex.columnIndex - 1,
+          };
+        }
+        let rightBottomPixelIndex = {
+          rowIndex: hoveredPixel.rowIndex + 1,
+          columnIndex: hoveredPixel.columnIndex + 1,
+        };
+        while (
+          rightBottomPixelIndex.rowIndex <= indices.bottomRowIndex &&
+          rightBottomPixelIndex.columnIndex <= indices.rightColumnIndex
+        ) {
+          pixelsToColor.push({
+            ...rightBottomPixelIndex,
+            color: "red",
+          });
+          rightBottomPixelIndex = {
+            rowIndex: rightBottomPixelIndex.rowIndex + 1,
+            columnIndex: rightBottomPixelIndex.columnIndex + 1,
+          };
+        }
+
+        colorPixels(pixelsToColor.map((pixel) => ({ ...pixel, color: "red" })));
       }
       // Modify ⬆️
     };
